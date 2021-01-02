@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mygui</title>
+    <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+</head>
+
+<body>
+    <div class="info">
+        <style>
+            body {
+                margin: 0;
+            }
+
+            #board {
+                margin: 0 auto;
+                width: 500px;
+            }
+
+            #myCanvas {
+                border: 3px dotted #000;
+            }
+        </style>
+        <div id="board">
+            <h1>create by @HuZheng</h1>
+            <canvas id="myCanvas" width="560" height="560"></canvas>
+            <p><button id="remove">clear</button></p>
+            <P><button id="send">send</button></P>
+        </div>
+        <script>
+            var myCanvas = document.getElementById("myCanvas");
+            var curColor = "red";
+            var isDown = false;
+            var ctx = myCanvas.getContext("2d");
+            ctx.lineCap = "round";
+            ctx.lineWidth = 40;
+
+            myCanvas.addEventListener("mousedown", function (e) {
+                isDown = true;
+                ctx.beginPath();
+                canvasX = e.pageX - myCanvas.offsetLeft;
+                canvasY = e.pageY - myCanvas.offsetTop;
+                ctx.moveTo(canvasX, canvasY);
+            });
+            myCanvas.addEventListener("mousemove", function (e) {
+                if (isDown != false) {
+                    canvasX = e.pageX - myCanvas.offsetLeft;
+                    canvasY = e.pageY - myCanvas.offsetTop;
+                    ctx.lineTo(canvasX, canvasY);
+                    ctx.strokeStyle = curColor;
+                    ctx.stroke();
+                }
+            })
+            myCanvas.addEventListener("mousemove", function (e) {
+                if (isDown != false) {
+                    canvasX = e.pageX - myCanvas.offsetLeft;
+                    canvasY = e.pageY - myCanvas.offsetTop;
+                    ctx.lineTo(canvasX, canvasY);
+                    ctx.strokeStyle = curColor;
+                    ctx.stroke();
+                }
+            })
+
+            myCanvas.addEventListener("mouseup", function (e) {
+                isDown = false;
+                ctx.closePath();
+            })
+
+            var clear = document.getElementById("remove");
+            clear.addEventListener("click", function () {
+                let ctx2 = myCanvas.getContext("2d");
+                console.log("clear");
+                ctx2.clearRect(0, 0, myCanvas.width, myCanvas.height);
+            })
+
+            var send = document.getElementById("send");
+            send.addEventListener("click", function () {
+                let ctx3 = myCanvas.getContext("2d");
+                console.log("send");
+                var dataURL = window.myCanvas.toDataURL("image");
+
+                $.post("/postcdata", {
+                    canvasdata: dataURL
+                });
+
+
+            })
+        </script>
+
+</body>
+
+</html>
