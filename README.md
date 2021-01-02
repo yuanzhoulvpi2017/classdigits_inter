@@ -26,6 +26,11 @@ python app.py
 
 2. 使用鼠标在虚线框内绘画（手写0-9）。按下鼠标左键然后拖住移动，写出一个数字，可以多次绘画内容，如果不满意可以按`clear`按钮。当写好之后，按下`send`按钮，就可以在控制台看到被计算的结果。最后计算手写的所有数值都在images文件夹里面。
 
+3. 视频运行流程：
+   1. [bilibili](https://www.bilibili.com/video/BV15X4y1M7DT)
+   2. [Twitter](https://twitter.com/i/status/1345246473894563840)
+
+
 
 
 # 训练数据部分
